@@ -24,5 +24,5 @@ Route::put('/{id}', [ProductsController::class, 'update'])->where('id', '[0-9]+'
 Route::get('/lixeira', [ProductsController::class, 'archive'])->name('cadastroLixeira');
 Route::get('/{id}/restore', [ProductsController::class, 'restore'])->name('cadastroRestore');
 Route::get('/{id}/erase', [ProductsController::class, 'erase'])->name('cadastroErase');
-Route::get('/filter', [ProductsController::class, 'filter'])->name('cadastroFilter');
+Route::post('/filter', [ProductsController::class, 'filter'])->name('cadastroFilter');
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -10,17 +11,18 @@ class ProductsController extends Controller
     public function index(){
 
         $products = Product::all();
+        $categories = Category::all();
         
-        return view('welcome', ['products'=>$products]);
+        return view('welcome', ['products'=>$products, 'categories'=>$categories]);
     }
 
     public function create() {
-
-        return view('cadastro');
+        $categories = Category::all();
+        return view('cadastro', ['categories'=>$categories]);
     }
 
     public function store(Request $request){
-       
+
         Product::create($request->all());
         
         return redirect()->route('index-Create');
@@ -77,10 +79,10 @@ class ProductsController extends Controller
     }
 
     public function filter(Request $request){
-        
-        $products = Product::where('tipo', '=', $request)->get();
+        $categories = Category::all();
+        $products = Product::where('category_id', '=', $request->category_id)->get();
         //dd($request);
-        return view('welcome', ['products'=>$products]);
+        return view('welcome', ['products'=>$products, 'categories'=>$categories]);
     }
 }
   

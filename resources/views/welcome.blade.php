@@ -12,13 +12,15 @@
             </div>
             <div class="col-6">
                 <div class="d-flex align-items-center" style="width: 100%; height: 100%;">   
-                    <form action="{{ route('cadastroFilter') }}" class="d-flex" method="GET">
+                    <form action="{{ route('cadastroFilter') }}" class="d-flex" method="post">
                         @csrf
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Todos os itens</option>
-                            <option value="1">vestuário</option>
-                            <option value="2">Copos, xícaras e canecas</option>
-                            <option value="3">Papelaria</option>
+                        <select class="form-select" aria-label="Default select example" required name="category_id">
+                            <option value="" >-------</option>
+                            @foreach ($categories as $category )
+                            <option value="{{$category->id}}">{{$category->description}}</option>
+                            @endforeach
+                            
+                  
                         </select>
                         <input type="submit" class="btn btn-primary" value="Filtrar" style="font-size: 12px; margin-left: 16px; ">
                     </form>
@@ -31,7 +33,7 @@
                 <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
-                <th scope="col">Tipo</th>
+                <th scope="col">Categoria</th>
                 <th scope="col">Valor</th>
                 <th scope="col">...</th>
                 </tr>
@@ -41,7 +43,7 @@
                 <tr>
                 <th>{{ $product->id }}</th>
                 <td>{{ $product->nome }}</td>
-                <td>{{ $product->tipo }}</td>
+                <td>{{ $product->category->description }}</td>
                 <td>{{ $product->valor }}</td>
                 <th> 
                 <div class="container d-flex" style="">   
